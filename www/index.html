@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Répertoire d'ouvertures</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>♟ Mon répertoire d'ouvertures</h1>
+    <span id="save-status"></span>
+    <div class="toolbar">
+      <label class="inline">Je joue
+        <select id="perspective">
+          <option value="w">les Blancs</option>
+          <option value="b">les Noirs</option>
+        </select>
+      </label>
+      <button id="btn-flip" title="Retourner l'échiquier">⇅ Retourner</button>
+      <button id="btn-import-pgn">Importer PGN</button>
+      <button id="btn-import-json">Importer JSON</button>
+      <button id="btn-export-pgn">Exporter PGN</button>
+      <button id="btn-export-json">Exporter JSON</button>
+      <button id="btn-new" class="danger">Nouveau répertoire</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="board-col">
+      <div id="turn-banner"></div>
+      <div id="board"></div>
+      <div id="board-controls">
+        <button id="btn-start">⏮ Début</button>
+        <button id="btn-prev">◀ Précédent</button>
+        <button id="btn-next">Suivant ▶</button>
+        <span id="game-end"></span>
+      </div>
+      <div id="line-bar"></div>
+    </div>
+
+    <div id="side-col">
+      <section id="editor" class="panel hidden">
+        <h2 id="editor-title"></h2>
+        <div id="editor-body">
+          <label>Qualité du coup
+            <select id="ed-tag">
+              <option value="">— non noté —</option>
+              <option value="main">★ Principale</option>
+              <option value="alt">Alternative</option>
+              <option value="avoid">⚠ À éviter</option>
+            </select>
+          </label>
+          <label>Commentaire
+            <textarea id="ed-comment" rows="3" placeholder="Plan, idée, piège…"></textarea>
+          </label>
+          <div>
+            <span class="label">Joué contre&nbsp;:</span>
+            <div id="ed-opponents" class="chips"></div>
+            <div class="row">
+              <input id="ed-new-opponent" type="text" placeholder="Ajouter un adversaire…">
+              <button id="ed-add-opponent">+</button>
+            </div>
+          </div>
+          <div class="row spread">
+            <button id="ed-promote">▲ Ligne principale</button>
+            <button id="ed-delete" class="danger">✕ Supprimer cette variante</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Coups enregistrés à cette position</h2>
+        <div id="candidates"><p class="hint">Aucun coup enregistré ici. Jouez sur l'échiquier pour commencer une ligne, ou importez un PGN.</p></div>
+      </section>
+
+      <section class="panel">
+        <h2>Arbre des variantes <span id="tree-stats" class="hint"></span></h2>
+        <div id="tree"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Mes adversaires</h2>
+        <div class="row">
+          <input id="op-new" type="text" placeholder="Nom de l'adversaire…">
+          <button id="op-add">Ajouter</button>
+        </div>
+        <div id="op-list" class="chips"></div>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="modal">
+    <h3 id="modal-title"></h3>
+    <label id="modal-file-label">ou choisir un fichier <input type="file" id="modal-file"></label>
+    <label class="chk"><input type="checkbox" id="modal-replace" checked> Remplacer l'arbre actuel (sinon fusionner)</label>
+    <textarea id="modal-text" rows="12" spellcheck="false"></textarea>
+    <p id="modal-error" class="error"></p>
+    <div class="row spread">
+      <button id="modal-cancel">Annuler</button>
+      <button id="modal-ok" class="primary">Valider</button>
+    </div>
+  </dialog>
+
+  <script src="engine.js"></script>
+  <script src="pgn.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
